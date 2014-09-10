@@ -1,0 +1,653 @@
+/* CSS Document */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffe;
+}
+
+img {
+  border: 0;
+}
+
+.cgui_area {
+  position: absolute;
+  font-family: Arial;
+  font-size: 12px;
+  width: 100%;
+  top: 0;
+}
+
+.cgui_area a {
+  color: black;
+  text-decoration: underline;
+}
+
+.cgui_area a:hover {
+  color: red;
+}
+
+/* Forms */
+.cgui_area form, .cgui_form {
+  margin: 0;
+  padding: 0;
+  font-size: 10pt;
+}
+
+.cgui_form_box {
+  font-family: Arial;
+  font-size: 10pt;
+  text-align: left;
+  border-color: blue;
+  border-width: 1px;
+  border-style: solid;
+  background-color: #eef;
+}
+
+.cgui_form_capt {
+  background: url('formcapt.png');
+  height: 20px;
+  padding-left: 5px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.cgui_form_closebtn {
+  background: url('formclose.png');
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  cursor: pointer;
+  margin-top: 1px;
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+}
+
+.cgui_form_closebtn_over {
+  background-position: -18px 0px;
+}
+
+.cgui_form_button, .cgui_form_button_ovr, .cgui_form_button_dis {
+  position: absolute;
+  border-style: solid;
+  border-width: 1px;
+  border-color: blue;
+  height: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.cgui_form_button {
+  background-color: #6CF;
+  background-image: url('btnbg.png');
+}
+
+.cgui_form_button_ovr {
+  background-color: #6CF;
+  background-image: url('btnbg_ovr.png');
+}
+
+.cgui_form_button_dis {
+  background-color: #6CF;
+  background-image: url('btnbg_dis.png');
+}
+
+.cgui_form_label {
+  position: absolute;
+  color: black;
+}
+
+.cgui_form_vline {
+  position: absolute;
+  border-top: 1px solid #99F;
+  border-bottom: 1px solid white;
+  height: 0px;
+}
+
+.cgui_form_text {
+  position: absolute;
+}
+
+.cgui_form_text input,
+.cgui_form_text textarea,
+.cgui_form_text select {
+  border-color: blue;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.cgui_form_checkbox {
+  position: absolute;
+}
+
+.cgui_form_gridbox {
+  background: white;
+  overflow: scroll;
+  border: 1px solid blue;
+}
+
+.cgui_form_gridbox table {
+  background-color: white;
+  cursor: pointer;
+}
+
+.cgui_form_gridbox .ovr {
+  background-color: #ddf;
+}
+
+.cgui_form_gridbox .sel {
+  background-color: blue;
+  color: white;
+}
+
+/**/
+
+.cgui_field_errbox {
+  position: absolute;
+  background-color: red;
+  color: white;
+  padding: 4px;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  display: none;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+/* Main menu */
+.cgui_mainmenu_box {
+  width: 100%;
+  border: solid 1px silver;
+  background-color: #eef;
+}
+
+.cgui_mainmenu_box .punkt, .cgui_mainmenu_box .punkt_sel, .cgui_mainmenu_box .punkt_ovr {
+  text-align: center;
+  background-color: #eef;
+  /*border:1px solid #88f;*/
+  padding: 4px;
+}
+
+.cgui_mainmenu_box .punkt_sel {
+  /*border:1px solid blue;*/
+  background-color: #ddf;
+  color: black;
+}
+
+.cgui_mainmenu_box .punkt_sel a {
+  color: blue;
+}
+
+.cgui_mainmenu_box .punkt_ovr {
+  /*border:1px solid black;*/
+  background-color: blue;
+}
+
+.cgui_mainmenu_box .punkt_ovr a {
+  color: white;
+}
+
+.cgui_mainmenu_box a {
+  text-decoration: none;
+  color: black;
+}
+
+.cgui_mainmenusub_box {
+  width: 100%;
+  border: solid 1px silver;
+  background-color: #eef;
+  height: 25px;
+}
+
+.cgui_mainmenusub_box .punkt, .cgui_mainmenusub_box .punkt_sel, .cgui_mainmenusub_box .punkt_ovr {
+  text-align: center;
+  background-color: #eef;
+  /*border:1px solid #88f;*/
+  padding: 2px;
+}
+
+.cgui_mainmenusub_box .punkt_sel {
+  /*border:1px solid blue;*/
+  background-color: #ddf;
+}
+
+.cgui_mainmenusub_box .punkt_sel a {
+  color: blue;
+}
+
+.cgui_mainmenusub_box .punkt_ovr {
+  /*border:1px solid black;*/
+  background-color: blue;
+}
+
+.cgui_mainmenusub_box .punkt_ovr a {
+  color: white;
+}
+
+.cgui_mainmenusub_box a {
+  text-decoration: none;
+  color: black;
+}
+
+.cgui_table {
+  background-color: gray;
+}
+
+.cgui_table tr {
+  background-color: white;
+}
+
+.cgui_table .header {
+  background-color: #eee;
+  text-align: center;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.cgui_table a {
+  color: black;
+  text-decoration: underline;
+}
+
+.cgui_table a:hover {
+  color: red;
+}
+
+.cgui_informer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 4px;
+  border-color: gray;
+  border-style: solid;
+  border-width: 1px;
+}
+
+/* commandmenu */
+
+.cgui_commandmenu {
+  position: fixed;
+  top: 100px;
+  left: -186px;
+  width: 200px;
+  z-index: 1000;
+}
+
+.cgui_commandmenu_bar {
+  position: absolute;
+  width: 15px;
+  background-color: #eef;
+  height: 100%;
+  color: gray;
+  border: solid 1px silver;
+  margin-left: 186px;
+  font-size: 8pt;
+  text-align: center;
+  font-weight: bold;
+}
+
+.cgui_commandmenu_cont {
+  position: absolute;
+  width: 185px;
+  height: 100%;
+  background-color: #f8f8f8;
+  border: solid 1px silver;
+}
+
+.cgui_commandmenu_cont .item {
+  text-align: center;
+  margin: 2px;
+  padding: 2px;
+  border: 1px silver solid;
+  background-color: #eef;
+  cursor: pointer;
+  height: 18px;
+  width: 160px;
+  margin-left: 10px;
+}
+
+.cgui_commandmenu_cont .ovr {
+  background-color: blue;
+  color: white;
+}
+
+/* table popup menu*/
+.cgui_table_rowmenu {
+  cursor: pointer;
+}
+
+.cgui_table_rowmenu_menu {
+  position: absolute;
+  display: none;
+  margin-top: -15px;
+  background-color: #eef;
+  border: 1px solid silver;
+}
+
+.cgui_table_rowmenu_menusplit {
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-top: 1px solid silver;
+  border-bottom: 1px solid white;
+  width: 160px;
+}
+
+.cgui_table_rowmenu_menuitem {
+  text-align: left;
+  margin-left: 10px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding: 2px;
+  background-color: #eef;
+  cursor: pointer;
+  height: 18px;
+  width: 160px;
+  font-size: 8pt;
+  font-weight:bold;
+  color: black;
+}
+
+.cgui_table_rowmenu_menu .over {
+  background-color: blue;
+  color: white;
+}
+
+#simplemodal-overlay {
+  background-color: #000; /* ��� �������� ���� ���������� */
+  cursor: wait; /* ������ ��� ��������� �� ����������� ������� */
+  filter: alpha(opacity = 80); /* ������������� ���������� */
+  height: 100%;
+}
+
+.cgui_tablepager {
+  margin-top: 5px;
+}
+
+.cgui_tablepager table {
+}
+
+.cgui_tablepager .navbtn {
+  width: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cgui_tablepager .navbtn_sel {
+  width: 20px;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cgui_tablepager .navpg {
+  width: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cgui_tablepager .navpg_sel {
+  width: 20px;
+  cursor: pointer;
+  background-color: blue;
+  color: white;
+  text-align: center;
+}
+
+.cgui_tablepager .sel {
+  background-color: silver;
+  color: white;
+}
+
+.cgui_tablepager select {
+  border: 1px solid silver;
+  width: 50px;
+  margin-left: 4px;
+}
+
+.cgui_pager_counter {
+  margin: 5px;
+}
+
+.cgui_pager_counter select {
+  border: 1px solid silver;
+  width: 50px;
+  margin-left: 4px;
+}
+
+.cgui_bpanel_block {
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: silver;
+  background-color: #eee;
+}
+
+.cgui_bpanel_block_body {
+  padding: 4px;
+  text-align: left;
+}
+
+.cgui_bpanel_button {
+  border-style: solid;
+  border-width: 1px;
+  border-color: blue;
+  height: 24px;
+  color: white;
+  cursor: pointer;
+  background-color: #6CF;
+  background-image: url('btnbg.png');
+  margin-left: 10px;
+}
+
+.cgui_bpanel_button:hover {
+  background-color: #6CF;
+  background-image: url('btnbg_ovr.png');
+}
+
+.cgui_bpanel_button_dis {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  height: 24px;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  background-color: #6CF;
+  background-image: url('btnbg_dis.png');
+}
+
+.cgui_upanel_block {
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: silver;
+  background-color: #eee;
+}
+
+.cgui_upanel_block_hdr {
+  margin-left: 4px;
+  margin-top: 2px;
+  height: 20px;
+  text-align: left;
+  color: gray;
+  font-size: 8pt;
+}
+
+.cgui_upanel_block_hdr .icon {
+  cursor: pointer;
+  width: 60px;
+  height: 20px;
+  background-image: url('arr_col.png');
+}
+
+.cgui_upanel_block_hdr .icon_exp {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-image: url('arr_exp.png');
+}
+
+.cgui_upanel_block_body {
+  padding-bottom: 10px;
+}
+
+.cgui_tablecellinfo {
+  position: absolute;
+  display: none;
+  background-color: #ffd;
+  border-color: silver;
+  border-style: solid;
+  border-width: 1px;
+  margin-top: 16px;
+  padding: 4px;
+}
+
+.cgui_tablecellinfo p {
+  line-height: 70%;
+}
+
+.cgui_filters_remove_link {
+  color: gray;
+  text-decoration: none;
+}
+
+.cgui_filters_remove_link:hover {
+  color: red;
+}
+
+.cgui_filters_link_reset {
+  color: blue;
+  text-decoration: none;
+}
+
+.cgui_filters_link_reset:hover {
+  color: red;
+}
+
+.cgui_filters_block {
+  padding: 5px;
+  margin-left: 10px;
+  text-align: left;
+}
+
+.cgui_filters_block input, select {
+  border: solid 1px gray;
+}
+
+.module {
+  margin: 10px;
+  float: left;
+}
+
+.module_name {
+  float: left;
+  font-size: 16pt;
+}
+.module_name:hover {
+  text-decoration: underline;
+}
+.submodule {
+  float: left;
+  margin: 20px;
+}
+
+.submodule_name {
+  float: left;
+  font-size: 14pt;
+}
+.submodule_name:hover {
+  text-decoration: underline;
+}
+.clear {
+  clear: both;
+}
+.command_name {
+   float: left;
+ }
+.column_name {
+  float: left;
+}
+.command_wrap {
+  margin-right: 15px
+}
+.column_wrap {
+  margin-right: 15px
+}
+.search_field {
+  float: left;
+  margin-right: 10px;
+}
+.instantEdit {
+  background-image: url("pencil.png");
+  width: 16px;
+  height: 16px;
+  float: right;
+  cursor: pointer;
+}
+.instantEditPopup {
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  border: 1px solid blueviolet;
+  margin-left: -50px;
+  margin-top: -10px;
+}
+.instantEditContent {
+  margin: 15px;
+}
+.instantEditButtons {
+  text-align: center;
+  margin: 0 10px 10px;
+}
+.instantEditSave {
+  width: 60px;
+  margin-right: 20px;
+}
+.instantEditTitle {
+  text-align: center;
+  margin-top: 10px;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+.colorPickerWrap {
+  float: right;
+}
+.export_links_wrap {
+  text-align: center;
+}
+.export_links_wrap a {
+  text-decoration: none;
+  margin: 0 5%;
+}
+.show_as_button {
+  display: inline-block;
+  padding: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: #DDF;
+}
+.show_as_active_button {
+  display: inline-block;
+  padding: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  background-image: url('btnbg.png');
+  color: #fff !important;
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}

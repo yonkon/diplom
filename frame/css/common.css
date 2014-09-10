@@ -1,0 +1,484 @@
+table {
+  font-size: 10pt;
+  background-color: gray;
+}
+
+table .header {
+  text-align: center;
+}
+
+table .header td {
+  background-color: #ddd;
+}
+
+table tr {
+  background-color: white;
+}
+
+.caption_txt {
+  font-weight: bold;
+}
+
+.normal_txt {
+
+}
+
+.error_txt {
+  color: red;
+}
+
+.info_txt {
+  color: green;
+}
+
+.zvezda {
+  color: #f00;
+}
+
+.clear {
+  clear: both;
+}
+
+a {
+  color: navy;
+}
+
+/* Any pages */
+
+#page_caption {
+  margin-top: 10px;
+  margin-left: 0;
+  height: 24px;
+  color: black;
+  padding-top: 3px;
+  padding-left: 5px;
+}
+
+/* Order form */
+#mkorder_info {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+#mkorder_error_text {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+#mkorder_order_napr {
+  float: left;
+}
+#mkorder_order_files {
+  margin-top: 10px
+}
+
+/* reminder */
+#reminder_email {
+
+}
+
+#reminder_code {
+  margin-top: 20px;
+  float: left;
+}
+
+#reminder_codeimage {
+  margin-top: 36px;
+  margin-left: 20px;
+  float: left;
+}
+
+/* cabinet */
+.cabinet_mmenu {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+}
+
+.cabinet_mmenu a {
+  color: gray;
+  font-weight: bold;
+}
+
+.cabinet_mmenu a:hover {
+  color: blue;
+  text-decoration: none;
+}
+
+.cabinet_mmenu .selected {
+  color: #833B3D;
+}
+
+/* prof */
+
+.cab_prof_fld_capt {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.cab_prof_fld {
+  margin-left: 10px;
+}
+
+#cab_prof_info {
+  width: 300px;
+  float: left;
+}
+
+#cab_prof_pwd {
+  float: left;
+  width: 220px;
+}
+#cab_ref_block {
+  width: 170px;
+  float: left;
+  text-align: center;
+}
+/* order */
+.cab_ord_row {
+  border-top: 1px solid silver;
+  margin-top: 2px;
+}
+
+.cab_ord_row_capt {
+  float: left;
+  width: 120px;
+}
+
+.cab_ord_row_val {
+  width: 500px;
+  float: left;
+}
+
+.bttn {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #fff;
+  float: right; /* кнопка растягивается только на длину текста */
+  position: relative; /* изменяя в дальнейшем top, добиться эффекта нажатия*/
+  /* закругляем углы */
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  /* делаем градиент (эффект выпуклости)*/
+
+  background: #FF6200 !important;
+  /*background-image: linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -o-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -moz-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -webkit-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -ms-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(109, 2, 0)), color-stop(0.71, rgb(202, 13, 0)));*/
+
+  /* тень, которую отбрасывает кнопка)*/
+  -moz-box-shadow: 1 rgba(0, 0, 0, .30) 2px 2px 2px;
+  -webkit-box-shadow: rgba(0, 0, 0, .30) 2px 2px 2px;
+  box-shadow: rgba(0, 0, 0, .30) 2px 2px 2px;
+  border: 1px solid rgba(180, 180, 180, 1);
+  outline: none;
+  width: 210px;
+  margin-right: 20px;
+}
+
+.bttn:visited {
+  color: #fff;
+}
+
+.bttn:hover {
+  /* тень, которую отбрасывает кнопка сделать больше*/
+  box-shadow: rgba(0, 0, 0, .30) 4px 4px 4px;
+  -moz-box-shadow: 1 rgba(0, 0, 0, .30) 4px 4px 4px;
+  -webkit-box-shadow: rgba(0, 0, 0, .30) 4px 4px 4px;
+  /* поменять градиент (эффект большей выпуклости)*/
+
+  background: #FF6200 !important;
+  /*background-image: linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -o-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -moz-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -webkit-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -ms-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(109, 2, 0)), color-stop(0.71, rgb(202, 13, 0)));*/
+
+  top: -1px; /*поднять кнопку*/
+  text-decoration: none;
+  color: #fff;
+}
+
+.bttn:active, .bttn:focus {
+  /* тень, которую отбрасывает кнопка можно вообще убрать*/
+  box-shadow: rgba(0, 0, 0, .30) 1px 1px 1px;
+  -moz-box-shadow: 1 rgba(0, 0, 0, .30) 1px 1px 1px;
+  -webkit-box-shadow: rgba(0, 0, 0, .30) 1px 1px 1px;
+  top: 1px; /*втопить кнопку*/
+  /* поменять градиент для визуального 3Д*/
+
+  background: #FF6200 !important;
+  /*background-image: linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -o-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -moz-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -webkit-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -ms-linear-gradient(bottom, rgb(109, 2, 0) 0%, rgb(202, 13, 0) 71%);*/
+  /*background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(109, 2, 0)), color-stop(0.71, rgb(202, 13, 0)));*/
+}
+
+#zf_work_type_user, #zf_work_tema, #zf_work_type, #zf_work_predm, #zf_work_dopinfo, #add_file_field {
+  float: right;
+}
+
+.cabinet_sub_menu a {
+  text-decoration: none;
+  cursor: pointer;
+  background: #eeeeee;
+  font-weight: bold;
+  color: #000;
+  margin: 10px;
+  padding: 5px;
+}
+.cabinet_sub_menu a:hover {
+  background: #bdbdbd;
+}
+
+.cgui_upanel_block {
+  width: 100%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: silver;
+  background-color: #eee;
+}
+
+.cgui_upanel_block_hdr {
+  margin-left: 4px;
+  margin-top: 2px;
+  height: 20px;
+  text-align: left;
+  color: gray;
+  font-size: 8pt;
+}
+
+.cgui_upanel_block_hdr .icon {
+  cursor: pointer;
+  width: 60px;
+  height: 20px;
+  background-image: url('../../gui/skin/arr_col.png');
+}
+
+.cgui_upanel_block_hdr .icon_exp {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-image: url('../../gui/skin/arr_exp.png');
+}
+
+.cgui_upanel_block_body {
+  padding-bottom: 10px;
+}
+.gui_style table, .gui_style table tr, .cgui_upanel_block_body table, .cgui_upanel_block_body table tr {
+  background: none;
+}
+.cgui_tablecellinfo {
+  position: absolute;
+  display: none;
+  background-color: #ffd;
+  border-color: silver;
+  border-style: solid;
+  border-width: 1px;
+  margin-top: 16px;
+  padding: 4px;
+}
+
+.cgui_tablecellinfo p {
+  line-height: 70%;
+}
+.cgui_tablepager {
+  margin-top: 5px;
+}
+
+.cgui_tablepager table {
+}
+
+.cgui_tablepager .navbtn {
+  width: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cgui_tablepager .navbtn_sel {
+  width: 20px;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cgui_tablepager .navpg {
+  width: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cgui_tablepager .navpg_sel {
+  width: 20px;
+  cursor: pointer;
+  background-color: blue;
+  color: white;
+  text-align: center;
+}
+
+.cgui_tablepager .sel {
+  background-color: silver;
+  color: white;
+}
+
+.cgui_tablepager select {
+  border: 1px solid silver;
+  width: 50px;
+  margin-left: 4px;
+}
+
+.cgui_pager_counter {
+  margin: 5px;
+}
+
+.cgui_pager_counter select {
+  border: 1px solid silver;
+  width: 50px;
+  margin-left: 4px;
+}
+.cgui_table {
+  background-color: gray !important;
+}
+
+.cgui_table tr {
+  background-color: #fff !important;
+}
+.cgui_table tr:hover {
+  background-color: #ddf !important;
+}
+.cgui_table .header {
+  background-color: #eee !important;
+  text-align: center;
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.cgui_table a {
+  color: black;
+  text-decoration: underline;
+}
+
+.cgui_table a:hover {
+  color: red;
+}
+.cgui_area form, .cgui_form {
+  margin: 0;
+  padding: 0;
+  font-size: 10pt;
+}
+
+.cgui_form_box {
+  font-family: Arial;
+  font-size: 10pt;
+  text-align: left;
+  border-color: blue;
+  border-width: 1px;
+  border-style: solid;
+  background-color: #eef;
+}
+
+.cgui_form_capt {
+  background: url('../../gui/skin/formcapt.png');
+  height: 20px;
+  padding-left: 5px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.cgui_form_closebtn {
+  background: url('../../gui/skin/formclose.png');
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  cursor: pointer;
+  margin-top: 1px;
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+}
+
+.cgui_form_closebtn_over {
+  background-position: -18px 0px;
+}
+
+.cgui_form_button, .cgui_form_button_ovr, .cgui_form_button_dis {
+  position: absolute;
+  border-style: solid;
+  border-width: 1px;
+  border-color: blue;
+  height: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.cgui_form_button {
+  background-color: #6CF;
+  background-image: url('../../gui/skin/btnbg.png');
+}
+
+.cgui_form_button_ovr {
+  background-color: #6CF;
+  background-image: url('../../gui/skin/btnbg_ovr.png');
+}
+
+.cgui_form_button_dis {
+  background-color: #6CF;
+  background-image: url('../../gui/skin/btnbg_dis.png');
+}
+
+.cgui_form_label {
+  position: absolute;
+  color: black;
+}
+
+.cgui_form_vline {
+  position: absolute;
+  border-top: 1px solid #99F;
+  border-bottom: 1px solid white;
+  height: 0px;
+}
+
+.cgui_form_text {
+  position: absolute;
+}
+
+.cgui_form_text input,
+.cgui_form_text textarea,
+.cgui_form_text select {
+  border-color: blue;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.cgui_form_checkbox {
+  position: absolute;
+}
+
+.cgui_form_gridbox {
+  background: white;
+  overflow: scroll;
+  border: 1px solid blue;
+}
+
+.cgui_form_gridbox table {
+  background-color: white;
+  cursor: pointer;
+}
+
+.cgui_form_gridbox .ovr {
+  background-color: #ddf;
+}
+
+.cgui_form_gridbox .sel {
+  background-color: blue;
+  color: white;
+}

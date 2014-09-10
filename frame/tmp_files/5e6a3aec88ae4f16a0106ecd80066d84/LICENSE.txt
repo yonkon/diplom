@@ -1,0 +1,1 @@
+INSERT INTO `tv_ds_client_to_sphone`(`id`, `created`, `ordering`, `published`, `iduser`, `sphone`) VALUES ('',0000-00-00,0,1,572,380979675897)

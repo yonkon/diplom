@@ -1,0 +1,65 @@
+@import "common.css";
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #EEF5F7;
+  font-family: Arial;
+  font-size: 10pt;
+}
+input, textarea, select {
+  border: 1px solid silver;
+  padding: 2px;
+}
+#zakaz_form input, #zakaz_form textarea, #zakaz_form select {
+  width: 500px;
+}
+
+#zakaz_form input[type="text"] {
+  height: 28px;
+}
+
+#zakaz_form label {
+  line-height: 28px;
+}
+/* Order form */
+.mkorder_box {
+  border: 1px solid silver;
+  padding: 10px 20px;
+  margin: 10px;
+}
+
+#mkorder_user_loginbox_login {
+  /*float: left;*/
+  /*width: 250px;*/
+}
+
+#mkorder_user_loginbox_login #user_email {
+  /*width: 200px;*/
+  float: right;
+}
+#checkuser_info_text {
+  float: right;
+  width: 500px;
+}
+
+#mkorder_user_loginbox_pwd {
+  float: left;
+  width: 350px;
+}
+#zf_work_date, #zf_work_pages, #zf_user_name, #zf_user_city, #zf_user_tel {
+  float: right;
+}
+.row {
+  margin-bottom: 5px;
+}
+.total_spacer {
+  background-color: #EEF5F7;
+}
+.total {
+  background-color: #DDD;
+  font-weight: bold;
+}
+.select2_container {
+  width: 500px;
+  float: right;
+}

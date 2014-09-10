@@ -1,0 +1,66 @@
+@import "common.css";
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  font-family: Arial;
+  font-size: 10pt;
+}
+
+input, textarea, select {
+  padding: 6px;
+  min-height: 7px;
+  color: #666;
+  background: #fefefe;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc #e7e7e7 #e7e7e7;
+  font: 1em/1.2em Verdana,Arial,Helvetica,sans-serif;
+  border-radius: 7px;
+  box-shadow: 0 1px 6px #f0f0f0 inset;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  width: 300px;
+}
+
+/* Order form */
+
+.mkorder_box {
+  padding: 10px 20px;
+  margin: 10px;
+  background: #faf9f7;
+  border: 2px dotted #e0d9ca;
+  border-radius: 5px;
+}
+
+#mkorder_user_loginbox {
+}
+
+#mkorder_user_loginbox_pwd {
+  float: left;
+  width: 295px;
+  padding-left: 10px;
+}
+#mkorder_order_terb {
+}
+#user_email, #checkuser_info_text, #zf_user_name, #zf_user_tel, #zf_user_city {
+  float: right;
+}
+#zf_work_pages, #zf_work_date {
+  float: right;
+}
+.row {
+  margin-bottom: 5px;
+}
+#checkuser_info_text {
+  width: 300px;
+}
+#zakaz_form label {
+  line-height: 28px;
+}
+.select2_container {
+  width: 300px;
+  float: right;
+}
