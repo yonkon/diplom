@@ -57,16 +57,21 @@ class db {
     $$trans_lvl--;
   }
 
-  public static function error($query, $errno, $error) {
+  public static function error($query, $errno, $error, $return = true) {
     $error_string = self::trace();
     $error_string .= '<font color="#000000"><b>' . $errno . ' - ' . $error . '<br><br>' . $query . '<br><br><small><font color="#ff0000">[SCRIPT STOPPED]</font></small><br><br></b></font>';
-    echo $error_string;
+      if(!$return) {
+          echo $error_string;
+      }
     $trans_lvl = self::$_link . '_trans_lvl';
     global $$trans_lvl;
     while ($$trans_lvl) {
       self::rollback();
     }
-    die;
+      if(!$return) {
+          die;
+      }
+      return $error_string;
   }
 
   public static function prep($sql) {

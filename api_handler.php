@@ -1,8 +1,9 @@
 <?php
 
-include_once "mysql.class.php";
+require_once('includes/application_top.php');
+//include_once "mysql.class.php";
 include_once "config/config.php";
-include_once "utils.php";
+//include_once "utils.php";
 include_once "default_data.php";
 include_once "gui/gui.php";
 include_once "diplom.api.class.php";

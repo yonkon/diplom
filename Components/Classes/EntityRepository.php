@@ -121,9 +121,8 @@ class EntityRepository implements ObjectRepositoryInterface {
       throw new InvalidArgumentException(self::getEntity());
     }
 
-    db::update(static::TABLE, $data, 'id = ' . $id);
 
-    return true;
+    return db::update(static::TABLE, $data, 'id = ' . $id);
   }
 
   /**
