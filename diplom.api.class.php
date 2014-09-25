@@ -50,6 +50,14 @@ class diplom
             $filial_id = $order_parameters['filial_id'];
         }
 
+        if(!$filial_id) {
+            $query = "SELECT ftc.filial_id FROM " . TBL_PREF . "clients c  JOIN " .
+                TBL_PREF . "data_city dc ON dc.name = c.city JOIN ".
+                TBL_PREF . "filial_to_city ftc ON ftc.city_id = dc.id" .
+                " WHERE c.id = " . db::input($order_parameters['client_id']) . "";
+            $filial_id = db::get_single_value($query);
+        }
+
         $order_id = Order::create(array(
             "filial_id" => $filial_id,
             "klient_id" => $order_parameters['client_id'],
@@ -103,6 +111,104 @@ class diplom
             }
         }
 
+        if ($order_id) {
+            ////////////////////////
+            // Текст клиенту
+            $client = Client::find($order_parameters['client_id']);
+            $filial = \Components\Entity\Filial::find($filial_id);
+            $txt = "<p>Здравствуйте" . (empty($client["fio"]) ? "" : (", ". $client["fio"])) . "!</p>";
+            // Если первый раз
+            if (@$_SESSION["new_klient_added"]) {
+                $txt .= "<p>Мы очень рады, что Вы решили воспользоваться нашими услугами и высоко ценим Ваше доверие!</p>";
+
+            } else {
+                $txt .= "<p>Спасибо, что Вы с нами! Для постоянных клиентов у нас всегда есть интересные и выгодные предложения!</p>";
+            }
+
+            $zak = "<p>Номер заказа: " . $order_id . "<br>" . "Дата: " . date("d.m.Y") . "<br>";
+            $zak .= "Вид работы: ";
+            if (!empty($order_parameters['work_usr'])) {
+                $zak .= $order_parameters['work_usr'] . "<br>";
+            } else {
+                $worktype = \Components\Entity\Worktypes::find($order_parameters['work']);
+                $zak .=  $worktype['name'] . "<br>";
+            }
+
+            $zak .= "Дисциплина: ";
+            if ($order_parameters['disc_usr']) {
+                $zak .= $order_parameters['disc_usr'] . "<br>";
+            } else {
+                $discipline = \Components\Entity\Discipline::find($order_parameters['disc']);
+                $zak .=  $discipline['name'] . "<br>";
+//                $zak .= $_SESSION["zf_work_predm"] . "<br>";
+            }
+            if ($order_parameters['subj']) {
+                $zak .= "Тема работы: " . $order_parameters['subj'] . "<br>";
+            }
+            if ($order_parameters['treb']) {
+                $zak .= "Требования: " . $order_parameters['treb'] . "<br>";
+            }
+            if ($order_parameters['time_kln']) {
+                $zak .= "Дата сдачи: " . $order_parameters['time_kln'] . "<br>";
+            }
+            if ($order_parameters['pgmin'] && $order_parameters['pgmax'] ) {
+                $zak .= "Число страниц: " . $order_parameters['pgmin'] . "-" . $order_parameters['pgmax']  . "<br>";
+            }
+
+                $txt .= "<p>Ваш заказ принят, и в ближайшее время наш менеджер свяжется с Вами.</p>" . "<p>Содержание заказа: <br>" . $zak . "</p>";
+            $txt .= "<p><i>С уважением, компания по написанию студенческих работ.</i></p>";
+
+            $email = new \Components\Classes\Email();
+            $email->setData(array(
+                'email' => $client['email'],
+                'name' => $client['fio'],
+            ), "Ваш заказ принят!", $txt, array(), true, array(), array(
+                'email' => $filial['email'],
+                'name' => $filial['name'],
+            ));
+
+            //$m->SMTPDebug = true;
+
+            $mailErrors = array();
+            if (!$email->send()) {
+                $mailErrors[] = "Ошибки при отправке письма клиенту: " . $email->ErrorInfo;
+            }
+
+            ////////////////////////
+            // Текст в приемную заказов
+
+            $zak .= "<p>Заказчик:<br>";
+            if (@$_SESSION["new_klient_added"]) {
+                $zak .= "Новая регистрация<br>";
+            }
+            $zak .= "id: " . $client["id"] . "<br>" . "Имя: " . $client["fio"] . "<br>" . "Почта: " . $client["email"] . "<br>" . "Телефон: " . $client["telnum"] . "<br>" . "Город: " . $client["city"] . "<br>" . "Другие контакты: " . $client["contacts"] . "<br>";
+            if(!empty($mailErrors) ) {
+                $zak .= join('<br>', $mailErrors);
+            }
+
+
+            $message_id = \Components\Entity\Message::create(array(
+                'parent_id'     =>  0,
+                'order_id'      =>  $order_id,
+                'klient_id'     =>  $client["id"],
+                'visit_id'      =>  0,
+                'tender_id'     =>  0,
+                'created'       =>  time(),
+                'creator_id'    =>  'k'.$client["id"],
+                'addr'          =>  'u'.$filial['id'],
+                'subject'       =>  "Поступил новый заказ #" . $order_id,
+                'text'          =>  $zak,
+                'prior'         =>  1,
+                'uvedom'        =>  1,
+                'readed'        =>  0,
+                'needansv'      =>  0,
+                'basket'        =>  0,
+            ));
+            if(!empty ($message_id) ) {
+                \Components\Classes\Author::enqueue_message_to_email($message_id, $filial['id'], \Components\Entity\EmailNotification::TO_MANAGER_ON_CLIENT_CREATED_ORDER);
+            }
+        }
+
         return self::generate_response(true, "OK", array(
             'id' => $order_id,
             'date' => $date,
@@ -147,6 +253,23 @@ class diplom
     {
         $where = self::generate_where_clause($params);
         $query = 'SELECT * FROM ' . TBL_PREF . 'data_napravl' . " WHERE " . $where;
+        $db_result = db::get_arrays($query);
+
+        if (0 == $errno = mysql_errno()) {
+            if (count($db_result)) {
+                return self::generate_response(true, "OK", $db_result);
+            } else {
+                return self::generate_response(false, "Направления подходящего под параметры " . $where . " не существует");
+            }
+        } else {
+            return self::generate_response(false, db::error($query, $errno, mysql_error()));
+        }
+    }
+
+    public static function get_disciplines($params = array())
+    {
+        $where = self::generate_where_clause($params);
+        $query = 'SELECT * FROM ' . TBL_PREF . 'data_discip' . " WHERE " . $where;
         $db_result = db::get_arrays($query);
 
         if (0 == $errno = mysql_errno()) {
@@ -281,6 +404,15 @@ class diplom
             $filial_id = Filials::check($client_params['filial_id']);
         } else {
             $filial_id = Filials::search($client_params['filial']);
+            if((!$filial_id || $filial_id == 9)  && !empty($client_params['city'])) {
+                $query = "SELECT ftc.filial_id FROM " . TBL_PREF .  "data_city dc JOIN ".
+                    TBL_PREF . "filial_to_city ftc ON ftc.city_id = dc.id" .
+                    " WHERE dc.name = '" . db::input($client_params['city']) . "'";
+                $filial_id = db::get_single_value($query);
+                if(!$filial_id) {
+                    $filial_id = 9;
+                }
+            }
         }
 
         $client_id = Client::create(array(
@@ -331,8 +463,6 @@ class diplom
 
     public static function get_client($params)
     {
-
-
         $fields = '*';
 
         if (array_key_exists('fields', $params)) {
