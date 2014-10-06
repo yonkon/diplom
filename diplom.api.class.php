@@ -81,35 +81,37 @@ class diplom
             "from_id" => 4,
         ));
 
-        foreach ($_FILES as $file) {
-            if (is_uploaded_file($file["tmp_name"])) {
-                $extension = pathinfo($file['name']);
-                $extension = strtolower($extension['extension']);
 
-                $file_id = Order::attachFile($order_id, 0, $file["name"], $file["size"]);
 
-                if (!$file_id) {
-                    $result['msg'] = "Ошибка при загрузке файла";
-                    return $result;
-                } else {
-                    $dir = DIR_FS_ORDER_FILES . $order_id . '/';
-                    if (!is_dir(DIR_FS_ORDER_FILES)) {
-                        create_path('order_files', DIR_FS_DOCUMENT_ROOT);
-                    }
-                    if (!is_dir($dir)) {
-                        create_path($order_id, DIR_FS_ORDER_FILES);
-                    }
-
-                    $file_name = $file_id . '.' . $extension;
-
-                    if (!move_uploaded_file($file['tmp_name'], $dir . $file_name)) {
-                        Order::deleteAttachedFile($file_id);
-                        $result['msg'] = "Ошибка при сохранении файла";
-                        return $result;
-                    }
-                }
-            }
-        }
+//        foreach ($_FILES as $file) {
+//            if (is_uploaded_file($file["tmp_name"])) {
+//                $extension = pathinfo($file['name']);
+//                $extension = strtolower($extension['extension']);
+//
+//                $file_id = \Components\Entity\OrderFile::create() ::attachFile($order_id, 0, $file["name"], $file["size"]);
+//
+//                if (!$file_id) {
+//                    $result['msg'] = "Ошибка при загрузке файла";
+//                    return $result;
+//                } else {
+//                    $dir = DIR_FS_ORDER_FILES . $order_id . '/';
+//                    if (!is_dir(DIR_FS_ORDER_FILES)) {
+//                        create_path('order_files', DIR_FS_DOCUMENT_ROOT);
+//                    }
+//                    if (!is_dir($dir)) {
+//                        create_path($order_id, DIR_FS_ORDER_FILES);
+//                    }
+//
+//                    $file_name = $file_id . '.' . $extension;
+//
+//                    if (!move_uploaded_file($file['tmp_name'], $dir . $file_name)) {
+//                        Order::deleteAttachedFile($file_id);
+//                        $result['msg'] = "Ошибка при сохранении файла";
+//                        return $result;
+//                    }
+//                }
+//            }
+//        }
 
         if ($order_id) {
             ////////////////////////
@@ -207,6 +209,41 @@ class diplom
             if(!empty ($message_id) ) {
                 \Components\Classes\Author::enqueue_message_to_email($message_id, $filial['id'], \Components\Entity\EmailNotification::TO_MANAGER_ON_CLIENT_CREATED_ORDER);
             }
+
+            // Прикалываем файлы
+            $files = check_user_files();
+
+            // move file
+            if (count($files)) {
+                $path = DIR_FS_ORDER_FILES . $order_id;
+                if (!file_exists($path))
+                    mkdir($path);
+
+                foreach ($files as $f) {
+                    $fid = \Components\Entity\OrderFile::create(array(
+                        'order_id' => $order_id,
+                        'creator_id' => 0,
+                        'created' => time(),
+                        'name' => $f["name"],
+                        'size' => $f["size"],
+                    ));
+
+                    if ($fid > 0) {
+                        $ext = substr($f["name"], strrpos($f["name"], ".") + 1);
+                        $f_s = fopen($f["path"], "r");
+                        $f_d = fopen($path . "/" . $fid . "." . $ext, "w");
+                        fwrite($f_d, fread($f_s, $f["size"]));
+                        fclose($f_s);
+                        fclose($f_d);
+                    }
+                    unlink($f["path"]);
+                }
+            }
+
+            $path = TMPFILES_PATH . session_id();
+            if (file_exists($path))
+                rmdir($path);
+
         }
 
         return self::generate_response(true, "OK", array(
