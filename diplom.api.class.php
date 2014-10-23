@@ -239,7 +239,6 @@ class diplom
 //                    unlink($f["path"]);
                 }
             }
-
         }
 
         return self::generate_response(true, "OK", array(

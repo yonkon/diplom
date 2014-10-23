@@ -101,7 +101,7 @@ function cron_sendEmailNotifications() {
             $send_result = $email->send();
             if ( $send_result ) 
             {
-//              \Components\Entity\EmailNotification::delete($notification['id']);
+              \Components\Entity\EmailNotification::delete($notification['id']);
 			  $good_cnt++;
             } else {
               \Components\Entity\EmailNotification::update(
