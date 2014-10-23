@@ -1,4 +1,4 @@
-<?
+<?php
 
 use Components\Entity\Client;
 

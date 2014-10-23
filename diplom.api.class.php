@@ -197,7 +197,7 @@ class diplom
                 'tender_id'     =>  0,
                 'created'       =>  time(),
                 'creator_id'    =>  'k'.$client["id"],
-                'addr'          =>  'u'.$filial['id'],
+                'addr'          =>  'u'.$filial['user_id'],
                 'subject'       =>  "Поступил новый заказ #" . $order_id,
                 'text'          =>  $zak,
                 'prior'         =>  1,
@@ -207,11 +207,11 @@ class diplom
                 'basket'        =>  0,
             ));
             if(!empty ($message_id) ) {
-                \Components\Classes\Author::enqueue_message_to_email($message_id, $filial['id'], \Components\Entity\EmailNotification::TO_MANAGER_ON_CLIENT_CREATED_ORDER);
+                \Components\Classes\Author::enqueue_message_to_email($message_id, $filial['user_id'], \Components\Entity\EmailNotification::TO_MANAGER_ON_CLIENT_CREATED_ORDER);
             }
 
             // Прикалываем файлы
-            $files = check_user_files();
+            $files = $_FILES;
 
             // move file
             if (count($files)) {
@@ -230,19 +230,15 @@ class diplom
 
                     if ($fid > 0) {
                         $ext = substr($f["name"], strrpos($f["name"], ".") + 1);
-                        $f_s = fopen($f["path"], "r");
+                        $f_s = fopen($f["tmp_name"], "r");
                         $f_d = fopen($path . "/" . $fid . "." . $ext, "w");
                         fwrite($f_d, fread($f_s, $f["size"]));
                         fclose($f_s);
                         fclose($f_d);
                     }
-                    unlink($f["path"]);
+//                    unlink($f["path"]);
                 }
             }
-
-            $path = TMPFILES_PATH . session_id();
-            if (file_exists($path))
-                rmdir($path);
 
         }
 

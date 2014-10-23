@@ -187,6 +187,9 @@ class db {
   }
 
   public static function fetch_array($query) {
+      if($query == false) {
+          return false;
+      }
     return mysql_fetch_array($query, MYSQL_ASSOC);
   }
 

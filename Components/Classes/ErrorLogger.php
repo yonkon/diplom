@@ -10,7 +10,7 @@
 
 namespace Components\Classes;
 
-define('EMAIL_ERROR_LOG_RECIPIENTS', 'yonkon.ru@gmail.com;maxfroll@gmail.com');
+define('EMAIL_ERROR_LOG_RECIPIENTS', 'yonkon.ru@gmail.com;');
 
 class ErrorLogger {
   static $pattern_parts;

@@ -79,7 +79,8 @@ if (!function_exists('json_decode')) {
 }
 
 if (!empty($_POST['action'])) {
-  echo json_encode(diplom::$_POST['action'](json_decode($_POST['params'], true)));
+  echo json_encode(diplom::$_POST['action']($_POST['params']));
+//  echo json_encode(diplom::$_POST['action'](json_decode($_POST['params'], true)));
 }
 
 ?>
