@@ -7,6 +7,7 @@ use Components\Classes\db;
 
 class Order extends EntityRepository {
   const TABLE = TABLE_ORDERS;
+  const NAPR_ID_UNKNOWN = 94;
 
   public static function create(array $data) {
     if (empty($data)) {
@@ -26,7 +27,7 @@ class Order extends EntityRepository {
       'vuz_user' => '',
       'type_id' => 0,
       'type_user' => '',
-      'napr_id' => 0,
+      'napr_id' => Order::NAPR_ID_UNKNOWN,
       'disc_id' => 0,
       'disc_user' => '',
       'time_kln' => 0,

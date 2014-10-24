@@ -22,11 +22,13 @@ class diplom
         }
 
         if ($order_parameters['work'] == 0 && !strlen($order_parameters['work_usr'])) {
+          $order_parameters['work_usr'] = "Не указано";
             $message[] = "Не указан вид работы";
         }
 
         if ($order_parameters['disc'] == 0 && !strlen($order_parameters['disc_usr'])) {
-            $message[] = "Не указана дисциплина";
+          $order_parameters['disc_usr'] = "Не указано";
+          $message[] = "Не указана дисциплина";
         }
 
         if ($order_parameters['pgmax'] && ($order_parameters['pgmax'] < $order_parameters['pgmin'])) {
