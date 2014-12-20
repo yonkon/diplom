@@ -8,6 +8,9 @@ class Email extends \PHPMailer {
   public function __construct() {
     parent::__construct(false);
     $this->IsSMTP();
+    $this->DKIM_domain = "sessia_online.ru";
+    $this->DKIM_private = MAIL_DKIM_PRIVATE;
+
     $this->Host = MAIL_HOST;
     $this->Username = MAIL_USER;
     $this->Password = MAIL_PASW;

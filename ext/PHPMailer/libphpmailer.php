@@ -564,7 +564,8 @@ class PHPMailer {
 
       // digitally sign with DKIM if enabled
       if ($this->DKIM_domain && $this->DKIM_private) {
-        $header_dkim = $this->DKIM_Add($header,$this->Subject,$body);
+//        $header_dkim = $this->DKIM_Add($header,$this->Subject,$body);
+        $header_dkim =  $this->DKIM_Add($header,$this->EncodeHeader($this->SecureHeader($this->Subject), 'phrase'),$body);
         $header = str_replace("\r\n","\n",$header_dkim) . $header;
       }
 
@@ -2277,7 +2278,8 @@ class PHPMailer {
     $DKIMquery            = 'dns/txt'; // Query method
     $DKIMtime             = time() ; // Signature Timestamp = seconds since 00:00:00 - Jan 1, 1970 (UTC time zone)
     $subject_header       = "Subject: $subject";
-    $headers              = explode("\r\n",$headers_line);
+    $headers              = explode($this->LE,$headers_line);
+//    $headers              = explode("\r\n",$headers_line);
     foreach($headers as $header) {
       if (strpos($header,'From:') === 0) {
         $from_header=$header;
@@ -2285,12 +2287,19 @@ class PHPMailer {
         $to_header=$header;
       }
     }
-    $from     = str_replace('|','=7C',$this->DKIM_QP($from_header));
-    $to       = str_replace('|','=7C',$this->DKIM_QP($to_header));
+    $from     = str_replace('|','=7C',($from_header));
+    $to       = str_replace('|','=7C',($to_header));
+//    $from     = str_replace('|','=7C',$this->DKIM_QP($from_header));
+//    $to       = str_replace('|','=7C',$this->DKIM_QP($to_header));
     $subject  = str_replace('|','=7C',$this->DKIM_QP($subject_header)) ; // Copied header fields (dkim-quoted-printable
     $body     = $this->DKIM_BodyC($body);
     $DKIMlen  = strlen($body) ; // Length of body
-    $DKIMb64  = base64_encode(pack("H*", sha1($body))) ; // Base64 of packed binary SHA-1 hash of body
+    if ($this->ContentType == 'text/plain') {
+      $DKIMb64  = base64_encode(pack("H*", sha1($body))) ; // Base64 of packed binary SHA-1 hash of body
+    }else{
+      $DKIMb64 = base64_encode(pack("H*", sha1("\r\n" . preg_replace("/\r\n$/", "", $body)))) ;
+    }
+//    $DKIMb64  = base64_encode(pack("H*", sha1($body))) ; // Base64 of packed binary SHA-1 hash of body
     $ident    = ($this->DKIM_identity == '')? '' : " i=" . $this->DKIM_identity . ";";
     $dkimhdrs = "DKIM-Signature: v=1; a=" . $DKIMsignatureType . "; q=" . $DKIMquery . "; l=" . $DKIMlen . "; s=" . $this->DKIM_selector . ";\r\n".
                 "\tt=" . $DKIMtime . "; c=" . $DKIMcanonicalization . ";\r\n".

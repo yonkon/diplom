@@ -3,6 +3,7 @@
 const ORD_SUBSECTION_NEW = 1;
 const ORD_SUBSECTION_LIST = 2;
 const ORD_SUBSECTION_ARCHIVE = 3;
+const ORD_SUBSECTION_DELETE_CLIENT_FILES = 4;
 
 $n = $GUI->mmenu->selected->selected->section;
 $GUI->tmpls[] = $active_module_root . $n . ".tmpl.php";
@@ -21,6 +22,9 @@ switch ($n) {
     break;
   case ORD_SUBSECTION_ARCHIVE:
     include("archive.inc.php");
+    break;
+  case ORD_SUBSECTION_DELETE_CLIENT_FILES:
+    include("delete_client_files.inc.php");
     break;
 
   case 'instant_edit':

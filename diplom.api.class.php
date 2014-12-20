@@ -23,12 +23,12 @@ class diplom
 
         if ($order_parameters['work'] == 0 && !strlen($order_parameters['work_usr'])) {
           $order_parameters['work_usr'] = "Не указано";
-            $message[] = "Не указан вид работы";
+//            $message[] = "Не указан вид работы";
         }
 
         if ($order_parameters['disc'] == 0 && !strlen($order_parameters['disc_usr'])) {
           $order_parameters['disc_usr'] = "Не указано";
-          $message[] = "Не указана дисциплина";
+//          $message[] = "Не указана дисциплина";
         }
 
         if ($order_parameters['pgmax'] && ($order_parameters['pgmax'] < $order_parameters['pgmin'])) {
@@ -427,6 +427,9 @@ class diplom
             'msg' => '',
         );
 
+      if(empty($client_params['fio'])) {
+        $client_params['fio'] = 'Клиент с сайта';
+      }
         if (Client::exist($client_params['email'])) {
             $result['msg'] = "Клиент с email - " . $client_params['email'] . " уже существует";
             return $result;
