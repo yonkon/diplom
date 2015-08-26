@@ -78,9 +78,13 @@ if (!function_exists('json_decode')) {
   }
 }
 
-if (!empty($_POST['action'])) {
-  echo json_encode(diplom::$_POST['action']($_POST['params']));
-//  echo json_encode(diplom::$_POST['action'](json_decode($_POST['params'], true)));
+if (!empty($_REQUEST['action'])) {
+  $params = array();
+  if (!empty($_REQUEST['params'])) {
+    $params = json_decode($_REQUEST['params'], true);
+  }
+  echo json_encode(diplom::$_REQUEST['action']($params));
+//  echo json_encode(diplom::$_REQUEST['action'](json_decode($_REQUEST['params'], true)));
 }
 
 ?>

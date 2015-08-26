@@ -2,18 +2,17 @@
 
 namespace Components\Classes;
 
-require_once(DIR_FS_EXTENSIONS . 'PHPMailer/libphpmailer.php');
+require_once(DIR_FS_EXTENSIONS . 'PHPMailer/PHPMailerAutoload.php');
 
 class Email extends \PHPMailer {
   public function __construct() {
     parent::__construct(false);
-    $this->IsSMTP();
-    $this->DKIM_domain = "sessia_online.ru";
-    $this->DKIM_private = MAIL_DKIM_PRIVATE;
+//    $this->IsSMTP();
 
     $this->Host = MAIL_HOST;
     $this->Username = MAIL_USER;
     $this->Password = MAIL_PASW;
+//    $this->Sender = MAIL_USER;
     $this->SMTPAuth = true;
     if (MAIL_HOST_SSL) {
       $this->SMTPSecure = "ssl";
@@ -27,7 +26,10 @@ class Email extends \PHPMailer {
 
   public function setData(array $receiver, $subj, $body, $attachments = array(), $isHTML = false, $replyTo = array(), $from = array()) {
     $this->AddAddress($receiver['email'], $receiver['name']);
-    if (!empty($from) && is_array($from)) {
+//    if (strpos($receiver['email'], '@gmail.com') !== false) {
+//      $from['name'] = FIRM_NAME;
+//    }
+    if (!empty($from) && is_array($from) && !empty($from['email']) ) {
       $this->From = $from['email'];
       $this->FromName = $from['name'];
     } else {
@@ -35,15 +37,18 @@ class Email extends \PHPMailer {
       $this->FromName = FIRM_NAME;
     }
     $this->Subject = $subj;
-    if (!empty($replyTo)) {
+    if (!empty($replyTo) && !empty($replyTo['email']) ) {
       $this->AddReplyTo($replyTo['email'], $replyTo['name']);
+    } else {
+      $this->AddReplyTo('admin@sessia-online.ru', '');
     }
+
     if ($isHTML) {
       $this->MsgHTML($body);
     } else {
       $this->Body = $body;
     }
-
+    if(is_array($attachments))
     foreach($attachments as $file) {
       $this->addAttachment($file['path'], $file['name']);
     }

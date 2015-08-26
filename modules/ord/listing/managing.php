@@ -11,7 +11,7 @@ $GUI->Vars["page_hdr"] = "Распределение заказа №" . $order_
 
 $order_status = get_order_status($order_id);
 if (!empty($order_status) && !empty($order_info['manager_id'])) {
-  if ($_SESSION["user"]["data"]["group_id"] <= 2) {
+  if ($_SESSION["user"]["data"]["group_id"] <= 3) {
     //назначить автора
     $h = 120;
     if ($order_info['author_id'] != 0) {
@@ -214,7 +214,7 @@ if (!empty($order_status) && !empty($order_info['manager_id'])) {
     $b->Event = "document.location.href='?section=ord&subsection=2'";
   }
 } else {
-  if ($_SESSION['user']['data']['group_id'] > get_role_id_by_name('Старший менеджер')) {
+  if ($_SESSION['user']['data']['group_id'] > get_role_id_by_name('Менеджер')) {
     $GUI->ERR('Заказ еще не распределялся');
     page_reloadSubSec();
   }

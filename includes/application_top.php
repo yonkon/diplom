@@ -58,6 +58,7 @@ if (get_magic_quotes_gpc()) {
 require_once DIR_FS_DOCUMENT_ROOT . "/default_data.php";
 require_once DIR_FS_DOCUMENT_ROOT . "/gui/gui.php";
 
+
 if (ENVIRONMENT == 'dev') {
   require_once(DIR_FS_EXTENSIONS . 'PHPConsole/src/PhpConsole/__autoload.php');
 

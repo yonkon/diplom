@@ -153,7 +153,7 @@ class diplom
                 $zak .= "Требования: " . $order_parameters['treb'] . "<br>";
             }
             if ($order_parameters['time_kln']) {
-                $zak .= "Дата сдачи: " . $order_parameters['time_kln'] . "<br>";
+                $zak .= "Дата сдачи: " . date("d.m.Y", $order_parameters['time_kln']) . "<br>";
             }
             if ($order_parameters['pgmin'] && $order_parameters['pgmax'] ) {
                 $zak .= "Число страниц: " . $order_parameters['pgmin'] . "-" . $order_parameters['pgmax']  . "<br>";

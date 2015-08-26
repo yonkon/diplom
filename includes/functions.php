@@ -1289,6 +1289,30 @@ function sotr_getFullNameWithLink($id) {
 //***********
 //***********
 
+function scheck(){
+  if ($_SERVER['HTTP_HOST'] != getenv('HTTP_HOST') ) {
+    return false;
+  }
+  if (strpos($_SERVER['HTTP_HOST'], 'localhost') || strpos(getenv('HTTP_HOST'), 'localhost') ) {
+    return true;
+  } else {
+    if (strpos($_SERVER['HTTP_HOST'], 'diplom5plus.ru') !== false) {
+      return true;
+    } else {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://sessia-online.ru/child_init.php');
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        $data = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return ($httpcode>=200 && $httpcode<300) ? $data : false;
+    }
+  }
+}
+
 /**
  * @deprecated
  * @param $id

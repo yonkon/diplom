@@ -43,6 +43,13 @@ class MysqlToExcel {
     $writer->save('php://output');
   }
 
+  public function saveOutput($file_name) {
+    // Создаем "писателя"
+    $writer = \PHPExcel_IOFactory::createWriter($this->phpExcel, 'Excel2007');
+    // Сохраняем файл
+    $writer->save($file_name);
+  }
+
   public function writeData() {
     $this->getAvailableColumns();
     require_once(DIR_FS_DOCUMENT_ROOT . '/modules/' . $this->module . '/functions.php');

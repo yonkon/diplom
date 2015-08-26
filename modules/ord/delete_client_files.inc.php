@@ -2,7 +2,7 @@
 use Components\Classes\db;
 
 $query =
-'SELECT *, FROM_UNIXTIME(created) as _date  FROM `ofc_order_files` where created <=1401580800
+'SELECT *, FROM_UNIXTIME(created) as _date  FROM `ofc_order_files` where creator_id = 0
 ORDER BY `ofc_order_files`.`creator_id`, _date ';
 $db_result = db::get_arrays($query);
 $hasFiles = 0;

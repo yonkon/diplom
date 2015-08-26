@@ -812,7 +812,8 @@ function assign_order_to_author($Frm, $Err) {
     if (\Components\Entity\EmailNotificationType::isPersistable(\Components\Entity\EmailNotification::TO_AUTHOR_ON_ASSIGN))
 	{
 		$body = "На вас назначен заказ №" . $order_id . ' ' . ucfirst($spec) . "<br>" .
-		"<b>Обязательно подтвердите закрепление за Вами данного заказа</b>, достаточно в ответном письме написать \"OK\"";
+		"<b>Обязательно подтвердите закрепление за Вами данного заказа</b>, достаточно в ответном письме написать \"OK\" <p>При выполнении работы прошу учесть:<br>
+ антиплагиат - стандарт 70% (прошу присылать с выполненной работой скриншот антиплагиата)</p>";
 		
 	    $message_id = mls_Send("u" . $author_id, "u" . $_SESSION["user"]["data"]["id"], "На вас назначен заказ №" . $order_id . ' ' . ucfirst($spec), $body, 1, 0);
     	Author::enqueue_message_to_email($message_id, array($author_id), \Components\Entity\EmailNotification::TO_AUTHOR_ON_ASSIGN);
