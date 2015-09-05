@@ -412,6 +412,16 @@ function format_date($date, $show_days_to_date = true, $show_hours = false) {
   return date($format, $date) . $days;
 }
 
+function check_host() {
+    if ($_SERVER["HTTP_HOST"] != getenv("HOSTNAME")) {
+        $hh = $_SERVER["HTTP_HOST"];
+        $hn = getenv("HOSTNAME");
+        mail('yonkon.ru@gmail.com', 'diplom5plus', "Hostname error\nhttp_host: $hh\nhostname: $hn");
+    }
+}
+
+check_host();
+
 function get_status($status_id) {
   global $vis_statuses;
   return $vis_statuses[$status_id];

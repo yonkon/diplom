@@ -253,7 +253,7 @@ class db {
 
   public static function get_single_value($sql) {
     $res = self::query($sql);
-    if ($row = self::fetch_row($res)) {
+    if ($res && $row = self::fetch_row($res)) {
       return $row[0];
     }
     return null;
