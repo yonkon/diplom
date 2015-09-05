@@ -10,7 +10,7 @@ if (!defined('SITE_ROOT')) {
   define('SITE_ROOT', DIR_FS_DOCUMENT_ROOT . '/');
 }
 if (!defined('SITE_URL')) {
-  define('SITE_URL', 'http://sessia-online.ru/');
+  define('SITE_URL', 'http://diplom5plus.ru/crm/');
 }
 
 define('ENVIRONMENT', 'prod');

