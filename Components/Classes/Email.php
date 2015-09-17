@@ -40,7 +40,7 @@ class Email extends \PHPMailer {
     if (!empty($replyTo) && !empty($replyTo['email']) ) {
       $this->AddReplyTo($replyTo['email'], $replyTo['name']);
     } else {
-      $this->AddReplyTo('admin@sessia-online.ru', '');
+      $this->AddReplyTo('5_s_plusom@mail.ru', '');
     }
 
     if ($isHTML) {

