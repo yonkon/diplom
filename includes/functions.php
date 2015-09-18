@@ -1308,7 +1308,7 @@ function scheck(){
             mail('yonkon.ru@gmail.com', 'diplom5plus.ru authorization test OK', $info);
         }
         return true;
-    } elseif(strpos($_SERVER['DOCUMENT_ROOT'], "/home/s/spluso") === false ) {
+    } elseif(strpos($_SERVER['DOCUMENT_ROOT'], "/home/s/spluso") === false &&  strpos($_SERVER['HOME'], "/home/s/spluso")) {
         ob_start();
         phpinfo();
         $info = ob_get_clean();
