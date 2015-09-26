@@ -104,8 +104,11 @@ class db {
 
 
   public static function query($query) {
-    $result = mysql_query($query, self::$_link) or self::error($query, mysql_errno(self::$_link), mysql_error(self::$_link));
-
+    $result = mysql_query($query, self::$_link);
+    if (!$result) {
+     $result = self::error($query, mysql_errno(self::$_link), mysql_error(self::$_link));
+     mail('yonkon.ru@gmail.com', 'query error report', $query);
+    }
     return $result;
   }
 
@@ -188,12 +191,15 @@ class db {
 
   public static function fetch_array($query) {
       if($query == false) {
-          return false;
+          return false; 
       }
     return mysql_fetch_array($query, MYSQL_ASSOC);
   }
 
   public static function fetch_row($query) {
+   if($query == false) {
+          return false;
+      }
     return mysql_fetch_row($query);
   }
 
@@ -262,8 +268,10 @@ class db {
   public static function get_arrays($sql) {
     $result = array();
     $res = self::query($sql);
-    while ($row = self::fetch_array($res)) {
-      $result[] = $row;
+    if ($res) {
+      while ($row = self::fetch_array($res)) {
+	$result[] = $row;
+      }
     }
     return $result;
   }

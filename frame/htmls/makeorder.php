@@ -244,7 +244,7 @@ function clear_saved_form() {
       // Прикалываем файлы
       $files = check_user_files();
 
-      $message_id = \Components\Entity\Message::create(array(
+      $message_id = Message::create(array(
         'parent_id'     =>  0,
         'order_id'      =>  $id,
         'klient_id'     =>  $client["id"],

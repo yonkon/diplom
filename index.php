@@ -7,6 +7,7 @@ use Components\Classes\Roles;
 
 require_once('includes/application_top.php');
 
+//mail('yonkon.ru@gmail.com', 'diplom5plus.ru test', 'diplom5plus.ru test successful');
 if (!isset($_SESSION["user"]["auth"])) {
   $_SESSION["user"]["auth"] = false;
 }

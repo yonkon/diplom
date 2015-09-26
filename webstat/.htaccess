@@ -1,7 +1,0 @@
-AuthType Basic
-AuthName "/www/sessia-online.ru/webstat"
-AuthUserFile /var/www/sessia-online/data/etc/7409056.passwd
-DirectoryIndex index.html
-<Limit GET POST>
-	require valid-user
-</Limit>

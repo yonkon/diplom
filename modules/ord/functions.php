@@ -812,7 +812,8 @@ function assign_order_to_author($Frm, $Err) {
     if (\Components\Entity\EmailNotificationType::isPersistable(\Components\Entity\EmailNotification::TO_AUTHOR_ON_ASSIGN))
 	{
 		$body = "На вас назначен заказ №" . $order_id . ' ' . ucfirst($spec) . "<br>" .
-		"<b>Обязательно подтвердите закрепление за Вами данного заказа</b>, достаточно в ответном письме написать \"OK\"";
+		"<b>Обязательно подтвердите закрепление за Вами данного заказа</b>, достаточно в ответном письме написать \"OK\" <p>При выполнении работы прошу учесть:<br>
+ антиплагиат - стандарт 70% (прошу присылать с выполненной работой скриншот антиплагиата)</p>";
 		
 	    $message_id = mls_Send("u" . $author_id, "u" . $_SESSION["user"]["data"]["id"], "На вас назначен заказ №" . $order_id . ' ' . ucfirst($spec), $body, 1, 0);
     	Author::enqueue_message_to_email($message_id, array($author_id), \Components\Entity\EmailNotification::TO_AUTHOR_ON_ASSIGN);
@@ -963,7 +964,7 @@ function send_order_by_email($Frm, $Err, $_authors=null) {
     }
 
     $changes[] = "Менеджер: " . $manager['fio'] . ". По данному заказу писать на почту " . $filial['email'];
-    $changes[] = "Если заказ по данной дисциплине/специальности для Вас не является профильным, то Вы в любой момент можете отписаться от данной дисциплины/специальности в своем личном кабинете, расположенном по адресу: sessia-online.ru. Там же Вы так же можете подписаться на другие, интересные Вам дисциплины.";
+    $changes[] = "Если заказ по данной дисциплине/специальности для Вас не является профильным, то Вы в любой момент можете отписаться от данной дисциплины/специальности в своем личном кабинете, расположенном по адресу: diplom5plus.ru. Там же Вы так же можете подписаться на другие, интересные Вам дисциплины.";
 
     $msg_for_author = "Детали заказа №" . $order_id . ":\n";
     $msg_for_author .= join($changes, "<br>");

