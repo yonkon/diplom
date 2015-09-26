@@ -60,7 +60,9 @@ class Order extends EntityRepository {
     );
 
     $data = array_merge($default_parameters, $data);
-
+    if (!is_integer($data['time_kln']) ) {
+      $data['time_kln'] = strtotime($data['time_kln']);
+    }
     return parent::create($data);
   }
 }

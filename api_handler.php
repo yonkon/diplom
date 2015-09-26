@@ -80,13 +80,16 @@ if (!function_exists('json_decode')) {
 
 if (!empty($_REQUEST['action'])) {
   $params = array();
-  if (!empty($_REQUEST['params'])) {
-    $params = json_decode($_REQUEST['params'], true);
-  }
+  if (!empty($_REQUEST['params']) )
+    if (is_array($_REQUEST['params'])) {
+    $params = $_REQUEST['params'];
+  } else {
+      $params = json_decode($_REQUEST['params'], true);
+    }
   echo json_encode(diplom::$_REQUEST['action']($params));
 //  echo json_encode(diplom::$_REQUEST['action'](json_decode($_REQUEST['params'], true)));
 }
 
-?>
+
 
 
