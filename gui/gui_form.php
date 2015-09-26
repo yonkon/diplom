@@ -394,7 +394,7 @@ class CGUI_DataField {
   function GetHTML() {
     $out = "";
     if (count($this->jsevents) || $this->Disabled) {
-      $out .= "<script>jQuery(function() {" . "\n";
+      $out .= '<script>jQuery(function() {' . "\n";
       if ($this->Disabled) {
         $out .= "jQuery('#" . $this->idname . "').attr('disabled', 'disabled');" . "\n";
       }
@@ -994,7 +994,7 @@ class CGUI_Form {
     foreach($this->elms as $elm) {
       if ((strtolower(get_parent_class($elm)) == "cgui_datafield") && count($elm->vls)) {
         $valid = "onsubmit='return cgui_form_validator(this)'";
-        $out .= "<script type='text/javascript'>cgui_vforms[" . $this->id . "] = [];</script>";
+        $out .= "<script type='text/javascript'>cgui_vforms['" . $this->id . "'] = [];</script>";
         break;
       }
     }

@@ -1,5 +1,5 @@
 <?php
-
+header('Access-Control-Allow-Origin: *');
 require_once('includes/application_top.php');
 //include_once "mysql.class.php";
 include_once "config/config.php";
