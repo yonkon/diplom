@@ -5,9 +5,9 @@ class Autoloader {
     if (strpos($namespace, '\\') === false) {
       return;
     }
-    $file = str_replace('\\', '/', $namespace);
+    $file = str_replace('\\', DIRECTORY_SEPARATOR, $namespace);
     $path = DIR_FS_DOCUMENT_ROOT;
-    $filepath = $path . '/' . $file . '.php';
+    $filepath = $path . DIRECTORY_SEPARATOR . $file . '.php';
 
     if (file_exists($filepath)) {
       require_once($filepath);
@@ -21,8 +21,8 @@ class Autoloader {
     if (is_dir($path) && FALSE !== ($handle = opendir($path)) && $flag) {
       while (FAlSE !== ($dir = readdir($handle)) && $flag) {
         if (strpos($dir, '.') === FALSE) {
-          $path2 = $path . '/' . $dir;
-          $filepath = $path2 . '/' . $file . '.php';
+          $path2 = $path . DIRECTORY_SEPARATOR . $dir;
+          $filepath = $path2 . DIRECTORY_SEPARATOR . $file . '.php';
           if (file_exists($filepath)) {
             $flag = FALSE;
             require_once($filepath);

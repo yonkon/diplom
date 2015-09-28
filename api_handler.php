@@ -2,11 +2,11 @@
 header('Access-Control-Allow-Origin: *');
 require_once('includes/application_top.php');
 //include_once "mysql.class.php";
-include_once "config/config.php";
+//include_once "config/config.php";
 //include_once "utils.php";
-include_once "default_data.php";
-include_once "gui/gui.php";
-include_once "diplom.api.class.php";
+//include_once "default_data.php";
+//include_once "gui/gui.php";
+include_once DIR_FS_DOCUMENT_ROOT.DIRECTORY_SEPARATOR."diplom.api.class.php";
 
 if (!function_exists('json_encode')) {
   function json_encode($data) {

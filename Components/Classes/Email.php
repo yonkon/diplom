@@ -2,38 +2,39 @@
 
 namespace Components\Classes;
 
-require_once(DIR_FS_EXTENSIONS . 'PHPMailer/PHPMailerAutoload.php');
+require_once(DIR_FS_EXTENSIONS . 'PHPMailer'.DIRECTORY_SEPARATOR.'PHPMailerAutoload.php');
 
 class Email extends \PHPMailer {
   public function __construct() {
     parent::__construct(false);
-//    $this->IsSMTP();
+    $this->IsSMTP();
+//    $this->IsSendmail();
 
     $this->Host = MAIL_HOST;
     $this->Username = MAIL_USER;
     $this->Password = MAIL_PASW;
-//    $this->Sender = MAIL_USER;
+    $this->Sender = MAIL_USER;
     $this->SMTPAuth = true;
     if (MAIL_HOST_SSL) {
       $this->SMTPSecure = "ssl";
       $this->Port = MAIL_HOST_SSL;
     }
     $this->CharSet = "UTF-8";
-   // $this->SMTPDebug = true;
+//    $this->SMTPDebug = 2;
 
     return $this;
   }
 
   public function setData(array $receiver, $subj, $body, $attachments = array(), $isHTML = false, $replyTo = array(), $from = array()) {
     $this->AddAddress($receiver['email'], $receiver['name']);
-//    if (strpos($receiver['email'], '@gmail.com') !== false) {
-//      $from['name'] = FIRM_NAME;
-//    }
+    if (strpos($receiver['email'], '@gmail.com') !== false) {
+      $from['name'] = FIRM_NAME;
+    }
     if (!empty($from) && is_array($from) && !empty($from['email']) ) {
-      $this->From = $from['email'];
-      $this->FromName = $from['name'];
+      $this->From = MAIL_USER;
+      $this->FromName = $from['email'];
     } else {
-      $this->From = FIRM_EMAIL;
+      $this->From = MAIL_USER;
       $this->FromName = FIRM_NAME;
     }
     $this->Subject = $subj;
