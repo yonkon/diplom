@@ -1,9 +1,11 @@
 <?php
 
+use Components\Classes\Author;
 use Components\Classes\db;
 use Components\Entity\Order;
 use Components\Entity\Client;
 use Components\Classes\Filials;
+use Components\Entity\Employee;
 
 class diplom
 {
@@ -209,7 +211,7 @@ class diplom
                 'basket'        =>  0,
             ));
             if(!empty ($message_id) ) {
-                \Components\Classes\Author::enqueue_message_to_email($message_id, $filial['user_id'], \Components\Entity\EmailNotification::TO_MANAGER_ON_CLIENT_CREATED_ORDER);
+                Author::enqueue_message_to_email($message_id, $filial['user_id'], \Components\Entity\EmailNotification::TO_MANAGER_ON_CLIENT_CREATED_ORDER);
             }
 
             // Прикалываем файлы
@@ -560,6 +562,11 @@ class diplom
         );
     }
 
+    public static function add_author($params) {
+        $user = new Employee();
+        $params['group_id'] = Author::ROLE_ID;
+        $user->create($params);
+    }
 
 
 }
