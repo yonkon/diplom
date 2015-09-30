@@ -48,6 +48,7 @@ class diplom
 
         $date = mktime();
 
+
         $filial_id = db::get_single_value("SELECT filial_id FROM " . TBL_PREF . "clients WHERE id = " . db::input($order_parameters['client_id']) . "");
 
         if (!$filial_id) {
@@ -453,7 +454,7 @@ class diplom
             if((!$filial_id || $filial_id == 9)  && !empty($client_params['city'])) {
                 $query = "SELECT ftc.filial_id FROM " . TBL_PREF .  "data_city dc JOIN ".
                     TBL_PREF . "filial_to_city ftc ON ftc.city_id = dc.id" .
-                    " WHERE dc.name = '" . db::input($client_params['city']) . "'";
+                    " WHERE dc.name LIKE '" . db::input($client_params['city']) . "'";
                 $filial_id = db::get_single_value($query);
                 if(!$filial_id) {
                     $filial_id = 9;
@@ -580,6 +581,7 @@ class diplom
         $data = array(
             'filial_id' => 1,
             'group_id' => Author::ROLE_ID,
+            'conf_ordfld' => 'a:31:{i:0;s:1:"4";i:1;s:1:"3";i:2;s:1:"5";i:3;s:1:"6";i:4;s:1:"9";i:5;s:2:"17";i:6;s:2:"20";i:7;s:2:"18";i:8;s:1:"7";i:9;s:2:"26";i:10;s:2:"23";i:11;s:2:"13";i:12;s:2:"15";i:13;s:2:"25";i:14;s:2:"11";i:15;s:2:"30";i:16;s:2:"33";i:17;s:1:"2";i:18;s:1:"8";i:19;s:2:"10";i:20;s:2:"12";i:21;s:2:"14";i:22;s:2:"16";i:23;s:2:"19";i:24;s:2:"21";i:25;s:2:"22";i:26;s:2:"24";i:27;s:2:"27";i:28;s:2:"28";i:29;s:2:"31";i:30;s:2:"32";}',
             'password' => $params['pass'],
             'fio' => $params['fio'],
             'email' => $params['email'],
@@ -592,16 +594,61 @@ class diplom
             'status' => false,
             'msg' => '',
         );
+      if (empty($data['password'])) {
+        $result['params']['pass'] = 'Не указан пароль';
+      }
+      if (empty($data['fio'])) {
+        $result['params']['fio'] = 'Не указаны ФИО';
+      }
+      if (empty($data['email'])) {
+        $result['params']['email'] = 'Не указан email';
+      }
+      if (empty($params['mphone1']) ||
+        empty($params['mphone2']) ||
+        empty($params['mphone3']) )
+      {
+        $result['params']['mphone_correct'] = 'Не указан номер мобильного телефона';
+      }
         $user = new Employee();
+
         if ($user->exist($params['email']) ) {
             $result['msg'] = "Автор с email - " . $params['email'] . " уже существует";
             return $result;
         }
-
+        $fio = $data['fio'];
+      $pwd = $data['password'];
         if ($uid = $user->create($data)) {
+          $email_text = "<p>Поздравляем с успешной регистрацией,{$fio}!</p>";
+          $email_text .= "<p>Чтобы войти в систему, воспользуйтесь кнопкой \"вход для авторов\" на нашем сайте или пройдите по <a href=\"http://crm.diplom5plus.ru\">данной ссылке</a></p>";
+          $email_text .= "<p>В качестве логина используйте свой email <br>Ваш пароль для входа: {$pwd}</p>";
+          $email_text .= "<p>Для получения уведомлений о новых заказах, не забудьте проверить дисциплины Вашей направленности, нажав на кнопку \"Мои дисциплины\" в основном разделе панели управления</p>";
+          $email_text .= "<p>Надеемся, что наше сотрудничество будет плодотворным!</p>";
+          $email_text .= "<br><p>Если Вы получили данное письмо случайно, проигнорируйте его или сообщите администрации сайта, ответив на данное сообщение</p>";
+          $email_text .= "<p>С уважением, команда 5+</p>";
+          $message_id = \Components\Entity\Message::create(array(
+            'parent_id'     =>  0,
+            'order_id'      =>  0,
+            'klient_id'     =>  0,
+            'visit_id'      =>  0,
+            'tender_id'     =>  0,
+            'created'       =>  time(),
+            'creator_id'    =>  0,
+            'addr'          =>  'u'.$uid,
+            'subject'       =>  "Добро пожаловать в команду 5+",
+            'text'          =>  $email_text,
+            'prior'         =>  1,
+            'uvedom'        =>  1,
+            'readed'        =>  0,
+            'needansv'      =>  0,
+            'basket'        =>  0,
+          ));
+          if(!empty ($message_id) ) {
+            Author::enqueue_message_to_email($message_id, $uid, \Components\Entity\EmailNotification::TO_SUBSCRIBED_AUTHORS_ON_DISTRIBUTION);
+          }
+
             return self::generate_response(true,'OK', array('id' => $uid) );
         }
-        return self::generate_response(false, 'error', $params);
+        return self::generate_response(false, 'error', array());
     }
 
 
