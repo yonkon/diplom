@@ -563,9 +563,45 @@ class diplom
     }
 
     public static function add_author($params) {
+        $cont = '';
+        if (!empty($params['skype'])) {
+            $cont .= 'Skype: ' . $params['skype'] . "\n";
+        }
+        if (!empty($params['icq'])) {
+            $cont .= 'ICQ: ' . $params['icq'] . "\n";
+        }
+        if (!empty($params['web'])) {
+            $cont .= 'Веб-адрес: ' . $params['web'] . "\n";
+        }
+        if (!empty($params['other_contact'])) {
+            $cont .= 'Другие способы связи: ' . $params['other_contact'];
+        }
+
+        $data = array(
+            'filial_id' => 1,
+            'group_id' => Author::ROLE_ID,
+            'password' => $params['pass'],
+            'fio' => $params['fio'],
+            'email' => $params['email'],
+            'telnum' => $params['mphone1'].$params['mphone2'].$params['mphone3'] . ' ' . $params['sphone1'].$params['sphone2'].$params['sphone3'],
+            'cont' => $cont,
+            'comments' => $params['comments'],
+            'payment_requisites' => $params['payment_requisites']
+        );
+        $result = array(
+            'status' => false,
+            'msg' => '',
+        );
         $user = new Employee();
-        $params['group_id'] = Author::ROLE_ID;
-        $user->create($params);
+        if ($user->exist($params['email']) ) {
+            $result['msg'] = "Автор с email - " . $params['email'] . " уже существует";
+            return $result;
+        }
+
+        if ($uid = $user->create($data)) {
+            return self::generate_response(true,'OK', array('id' => $uid) );
+        }
+        return self::generate_response(false, 'error', $params);
     }
 
 
