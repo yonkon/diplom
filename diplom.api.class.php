@@ -610,7 +610,6 @@ class diplom
         $result['params']['mphone_correct'] = 'Не указан номер мобильного телефона';
       }
         $user = new Employee();
-
         if ($user->exist($params['email']) ) {
             $result['msg'] = "Автор с email - " . $params['email'] . " уже существует";
             return $result;
