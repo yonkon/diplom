@@ -156,6 +156,9 @@ class diplom
                 $zak .= "Требования: " . $order_parameters['treb'] . "<br>";
             }
             if ($order_parameters['time_kln']) {
+                if (!is_integer($order_parameters['time_kln'])) {
+                    $order_parameters['time_kln'] = strtotime($order_parameters['time_kln']);
+                }
                 $zak .= "Дата сдачи: " . date("d.m.Y", $order_parameters['time_kln']) . "<br>";
             }
             if ($order_parameters['pgmin'] && $order_parameters['pgmax'] ) {

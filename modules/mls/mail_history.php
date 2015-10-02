@@ -48,12 +48,12 @@ function emails_in_table() {
 
   $tbl->RowEvent2 = "document.location.href=\"?section=mls&subsection=2&type=o&read=%var%\"";
 
-  $r = $tbl->NewColumn();
+/*  $r = $tbl->NewColumn();
   $r->Caption = "Номер";
   $r->DoSort = true;
   $r->Key = "id";
   $r->Align = "left";
-  $r->Process = "_get_message_num";
+  $r->Process = "_get_message_num";*/
 
   $r = $tbl->NewColumn();
   $r->Caption = "Приоритет";
@@ -117,11 +117,11 @@ function emails_out_table() {
 
   $tbl2->RowEvent2 = "document.location.href=\"?section=mls&subsection=2&type=o&read=%var%\"";
 
-  $r = $tbl2->NewColumn();
+  /*$r = $tbl2->NewColumn();
   $r->Caption = "Номер";
   $r->DoSort = true;
   $r->Key = "id";
-  $r->Align = "left";
+  $r->Align = "left";*/
 
   $r = $tbl2->NewColumn();
   $r->Caption = "Кому";
