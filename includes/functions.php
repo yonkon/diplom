@@ -420,7 +420,7 @@ function check_host() {
     }
 }
 
-check_host();
+//check_host();
 
 function get_status($status_id) {
   global $vis_statuses;

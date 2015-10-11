@@ -1,4 +1,9 @@
 <?php
+header("Content-Type: text/html; charset=utf-8");
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('memory_limit', '256M');
+ini_set('max_input_vars', 2000);
 
 use Components\Classes\db;
 use Components\Classes\ErrorLogger;
@@ -8,11 +13,7 @@ session_start();
 
 //ini_set('error_reporting', E_ALL & ~E_DEPRECATED);
 //ini_set('error_reporting', E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT);
-ini_set('error_reporting', E_ALL);
-ini_set('display_errors', 1);
-ini_set('memory_limit', '256M');
 
-header("Content-Type: text/html; charset=utf-8");
 
 if (!defined('DIR_FS_DOCUMENT_ROOT')) {
   define('DIR_FS_DOCUMENT_ROOT', dirname(dirname(__FILE__)));

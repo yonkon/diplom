@@ -154,7 +154,7 @@ class CGUI_MainMenu
     function GetHTML()
     {
         $this->Update();
-        $out = "<table class='cgui_mainmenu_box'><tr>" . "\n";
+        $out = "<div class='top_menu_panel'><table class='cgui_mainmenu_box'><tr>" . "\n";
         foreach ($this->items as $v) {
             $a = "index.php?section=" . $v->section;
             $out .= "<td id='cgui_mainmenu_section_" . $v->section . "' nowrap class='" . $v->cname . "' onmouseover='this.className=\"punkt_ovr\"'" . " onmouseout='this.className=\"" . $v->cname . "\"' onclick='document.location.href=\"" . $a . "\"'><a href='" . $a . "'>" . $v->name . "</a></td>" . "\n";
@@ -174,7 +174,7 @@ class CGUI_MainMenu
 
             $out .= "<td style='width:100%;'>&nbsp;</td></tr></table>" . "\n";
         }
-
+      $out .= '</div><div style="background: none; margin-bottom: 53px;">&nbsp;</div>';
         return $out;
     }
 
