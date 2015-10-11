@@ -40,6 +40,9 @@ while ($row = db::fetch_array($columns_resource)) {
 }
 
 foreach ($new_columns as $column) {
+    if ($column['internal_name'] == "id") {
+        continue;
+    }
   if (isset($column['internal_name']) && in_array($column['internal_name'], $column_group_name)) {
     continue;
   }

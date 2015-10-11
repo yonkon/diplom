@@ -159,6 +159,9 @@ $r->menu->AddJsCommand("Сбросить", "unsel_all_messages()");
 
 foreach ($new_columns as $column) 
 {
+    if ($column['internal_name'] == "id") {
+        continue;
+    }
   if (isset($column['internal_name']) && in_array($column['internal_name'], $column_group_name)) 
   {
     continue;
@@ -192,9 +195,9 @@ foreach ($new_columns as $column)
     $r->Process = $column['on_execute'];
   }
   
-  	if ($column['internal_name'] == "id")
-	{
-		$tbl->DefaultSortBy($r, true);
-	}
+//  	if ($column['internal_name'] == "id")
+//	{
+//		$tbl->DefaultSortBy($r, true);
+//	}
   
 }
