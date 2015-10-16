@@ -811,9 +811,18 @@ function assign_order_to_author($Frm, $Err) {
 
     if (\Components\Entity\EmailNotificationType::isPersistable(\Components\Entity\EmailNotification::TO_AUTHOR_ON_ASSIGN))
 	{
-		$body = "На вас назначен заказ №" . $order_id . ' ' . ucfirst($spec) . "<br>" .
+      $author = Employee::find($author_id);
+		$body = "Здравствуйте, {$author['fio']}!<br>На вас назначен заказ №" . $order_id . ' ' . ucfirst($spec) . "<br>" .
 		"<b>Обязательно подтвердите закрепление за Вами данного заказа</b>, достаточно в ответном письме написать \"OK\" <p style=\"text-align: left\">При выполнении работы прошу учесть:<br>
- антиплагиат - стандарт 70% (прошу присылать с выполненной работой скриншот антиплагиата)</p>";
+ антиплагиат - стандарт 50%</p>
+ <hr><p><i>С уважением, коллектив компании \"5+\"!!!<br>
+г. Магнитогорск, ул. Труда, 31а. 3 Этаж. Офис №12.<br>
+Тел.:43-13-55, 8-904-97-97-555.<br>
+www.diplom5plus.ru<br>
+E-mail: 5_s_plusom@mail.ru<br>
+ICQ: 383708130<br>
+vk.com/diplom_5_s_plusom<br>
+Ваш успех - это наше стремление!!!</i></p>";
 		
 	    $message_id = mls_Send("u" . $author_id, "u" . $_SESSION["user"]["data"]["id"], "На вас назначен заказ №" . $order_id . ' ' . ucfirst($spec), $body, 1, 0);
     	Author::enqueue_message_to_email($message_id, array($author_id), \Components\Entity\EmailNotification::TO_AUTHOR_ON_ASSIGN);
@@ -912,19 +921,19 @@ function send_order_by_email($Frm, $Err, $_authors=null) {
     $order_info = get_order_info($order_id);
 
     if ($order_info['vuz_id'] == 0) {
-      $changes[] = "'вуз' " . $order_info['vuz_user'];
+      $changes[] = "ВУЗ: " . $order_info['vuz_user'];
     } else {
       $vuz1 = get_vuz_name($order_info['vuz_id']);
-      $changes[] = "'вуз' " . $vuz1['sname'] . "(" . $vuz1['name'] . ")";
+      $changes[] = "ВУЗ: " . $vuz1['sname'] . "(" . $vuz1['name'] . ")";
     }
 
     if ($order_info['type_id'] == 0) {
-      $changes[] = "'вид работы' " . $order_info['type_user'];
+      $changes[] = "Вид работы: " . $order_info['type_user'];
     } else {
-      $changes[] = "'вид работы' " . get_worktype_name($order_info['type_id']);
+      $changes[] = "Вид работы: " . get_worktype_name($order_info['type_id']);
     }
 
-    $changes[] = "'факультет' " . get_naprav_name($order_info['napr_id']);
+    $changes[] = "Факультет: " . get_naprav_name($order_info['napr_id']);
 
     if ($order_info['disc_id'] == 0) {
       $spec = $order_info['disc_user'];
@@ -966,7 +975,7 @@ function send_order_by_email($Frm, $Err, $_authors=null) {
     $changes[] = "Менеджер: " . $manager['fio'] . ". По данному заказу писать на почту " . $filial['email'];
     $changes[] = "Если заказ по данной дисциплине/специальности для Вас не является профильным, то Вы в любой момент можете отписаться от данной дисциплины/специальности в своем личном кабинете, расположенном по адресу: diplom5plus.ru. Там же Вы так же можете подписаться на другие, интересные Вам дисциплины.";
 
-    $msg_for_author = "Детали заказа №" . $order_id . ":\n";
+    $msg_for_author = "Детали заказа №" . $order_id . ":<br>";
     $msg_for_author .= join($changes, "<br>");
 
     $authors = array();
@@ -979,15 +988,41 @@ function send_order_by_email($Frm, $Err, $_authors=null) {
     {
       $authors = $_POST['authors'];
     }
-	
-    $failed = Author::saveMessageAndEnqueueEmail(
-      $order_id,
-      $authors,
-      'u'.$_SESSION['user']['data']['id'],
-      '№' . $order_id . ' ' . ucfirst($spec),
-      str_replace(array('http://', 'https://'), '', $msg_for_author),
-      \Components\Entity\EmailNotification::TO_SUBSCRIBED_AUTHORS_ON_DISTRIBUTION
-    );
+      if (!is_array($authors) ) {
+          if (is_numeric($authors)) {
+              $authors = array($authors);
+          } else {
+              $authors = explode(', ', $authors);
+          }
+      }
+      $failed = array();
+	foreach ($authors as $author) {
+        $authorEntity = Employee::find($author);
+        $sendText =
+        "Здравствуйте, {$authorEntity['fio']}!<br>
+        Поступил новый заказ. Вы можете ознакомиться с ним более подробно и оценить в своем личном кабинете.<br>" . $msg_for_author .
+"<hr><p><i>
+С уважением, коллектив компании \"5+\"!!!<br>
+г. Магнитогорск, ул. Труда, 31а. 3 Этаж. Офис №12.<br>
+Тел.:43-13-55, 8-904-97-97-555.<br>
+www.diplom5plus.ru<br>
+ICQ: 383708130<br>
+vk.com/diplom_5_s_plusom<br>
+Ваш успех - это наше стремление!!!</i></p>
+";
+        $saveResult= Author::saveMessageAndEnqueueEmail(
+            $order_id,
+            $author,
+            'u'.$_SESSION['user']['data']['id'],
+            '№' . $order_id . ' ' . ucfirst($spec),
+            str_replace(array('http://', 'https://'), '', $sendText),
+            \Components\Entity\EmailNotification::TO_SUBSCRIBED_AUTHORS_ON_DISTRIBUTION
+        );
+        if (!empty($saveResult)) {
+            $failed = array_merge($failed, $saveResult);
+        }
+    }
+
 
 //    $failed = Author::sendEmail($order_id, $authors, '№' . $order_id . ' ' . ucfirst($spec), str_replace(array('http://', 'https://'), '', $msg_for_author), true, true);
     if (!count($failed)) {

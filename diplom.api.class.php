@@ -49,7 +49,7 @@ class diplom
         $date = mktime();
 
 
-        $filial_id = db::get_single_value("SELECT filial_id FROM " . TBL_PREF . "clients WHERE id = " . db::input($order_parameters['client_id']) . "");
+        $filial_id = db::get_single_value("SELECT filial_id FROM " . TBL_PREF . "clients WHERE id = " . db::input($order_parameters['client_id']) );
 
         if (!$filial_id) {
             $filial_id = $order_parameters['filial_id'];
@@ -59,7 +59,7 @@ class diplom
             $query = "SELECT ftc.filial_id FROM " . TBL_PREF . "clients c  JOIN " .
                 TBL_PREF . "data_city dc ON dc.name = c.city JOIN ".
                 TBL_PREF . "filial_to_city ftc ON ftc.city_id = dc.id" .
-                " WHERE c.id = " . db::input($order_parameters['client_id']) . "";
+                " WHERE c.id = " . db::input($order_parameters['client_id']) ;
             $filial_id = db::get_single_value($query);
         }
 
@@ -124,13 +124,9 @@ class diplom
             $client = Client::find($order_parameters['client_id']);
             $filial = \Components\Entity\Filial::find($filial_id);
             $txt = "<p>Здравствуйте" . (empty($client["fio"]) ? "" : (", ". $client["fio"])) . "!</p>";
-            // Если первый раз
-            if (@$_SESSION["new_klient_added"]) {
-                $txt .= "<p>Мы очень рады, что Вы решили воспользоваться нашими услугами и высоко ценим Ваше доверие!</p>";
 
-            } else {
-                $txt .= "<p>Спасибо, что Вы с нами! Для постоянных клиентов у нас всегда есть интересные и выгодные предложения!</p>";
-            }
+            $txt .= "<p>Мы рады видеть Вас с нами! Ваш заказ принят, и в ближайшее время наш менеджер свяжется с Вами.
+</p>";
 
             $zak = "<p>Номер заказа: " . $order_id . "<br>" . "Дата: " . date("d.m.Y") . "<br>";
             $zak .= "Вид работы: ";
@@ -165,8 +161,15 @@ class diplom
                 $zak .= "Число страниц: " . $order_parameters['pgmin'] . "-" . $order_parameters['pgmax']  . "<br>";
             }
 
-                $txt .= "<p>Ваш заказ принят, и в ближайшее время наш менеджер свяжется с Вами.</p>" . "<p>Содержание заказа: <br>" . $zak . "</p>";
-            $txt .= "<p><i>С уважением, компания по написанию студенческих работ.</i></p>";
+                $txt .= "<p>Содержание заказа: <br>" . $zak . "</p>";
+            $txt .= "<hr><p><i>С уважением, коллектив компании \"5+\"!!!<br>
+г. Магнитогорск, ул. Труда, 31а. 3 Этаж. Офис №12.<br>
+Тел.:43-13-55, 8-904-97-97-555.<br>
+www.diplom5plus.ru<br>
+E-mail: 5_s_plusom@mail.ru<br>
+ICQ: 383708130<br>
+vk.com/diplom_5_s_plusom<br>
+Ваш успех - это наше стремление!!!</i></p>";
 
             $email = new \Components\Classes\Email();
             $email->setData(array(
