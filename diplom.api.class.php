@@ -624,6 +624,7 @@ vk.com/diplom_5_s_plusom<br>
         $fio = $data['fio'];
       $pwd = $data['password'];
         if ($uid = $user->create($data)) {
+          /*
           $email_text = "<p>Поздравляем с успешной регистрацией,{$fio}!</p>";
           $email_text .= "<p>Чтобы войти в систему, воспользуйтесь кнопкой \"вход для авторов\" на нашем сайте или пройдите по <a href=\"http://crm.diplom5plus.ru\">данной ссылке</a></p>";
           $email_text .= "<p>В качестве логина используйте свой email <br>Ваш пароль для входа: {$pwd}</p>";
@@ -651,8 +652,9 @@ vk.com/diplom_5_s_plusom<br>
           if(!empty ($message_id) ) {
             Author::enqueue_message_to_email($message_id, $uid, \Components\Entity\EmailNotification::TO_SUBSCRIBED_AUTHORS_ON_DISTRIBUTION);
           }
+          */
 
-            $email_text = "<p>В системе зарегистрировался новый сотрудник,{$fio} <{$user['email']}>!</p>";
+            $email_text = "<p>В системе зарегистрировался новый сотрудник,{$fio} <{$data['email']}>!</p>";
             $email_text .= "<p>Чтобы принять автора пройдите по <a href=\"http://crm.diplom5plus.ru/index.php?section=sotr&subsection=2&edit={$uid}\">данной ссылке</a> и измените должность на соответствующую</p>";
             $email_text .= "<br><p>Если Вы получили данное письмо случайно, проигнорируйте его или сообщите администрации сайта, ответив на данное сообщение</p>";
             $email_text .= "<p>С уважением, команда 5+</p>";
@@ -664,8 +666,8 @@ vk.com/diplom_5_s_plusom<br>
                 'tender_id'     =>  0,
                 'created'       =>  time(),
                 'creator_id'    =>  0,
-                'addr'          =>  'u1',
-                'subject'       =>  "Добро пожаловать в команду 5+",
+                'addr'          =>  'u4',
+                'subject'       =>  "Регистрация автора",
                 'text'          =>  $email_text,
                 'prior'         =>  1,
                 'uvedom'        =>  1,
@@ -674,7 +676,7 @@ vk.com/diplom_5_s_plusom<br>
                 'basket'        =>  0,
             ));
             if(!empty ($message_id) ) {
-                Author::enqueue_message_to_email($message_id, $uid, \Components\Entity\EmailNotification::TO_SUBSCRIBED_AUTHORS_ON_DISTRIBUTION);
+                Author::enqueue_message_to_email($message_id, 4, \Components\Entity\EmailNotification::TO_SUBSCRIBED_AUTHORS_ON_DISTRIBUTION);
             }
 
             return self::generate_response(true,'OK', array('id' => $uid) );
